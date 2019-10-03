@@ -1,37 +1,28 @@
 <template>
     <div class="me-home-view">
+        <Header />
         this is home view
-        <div v-text="tips"></div>
         <div class="go" @click="goAbout">跳转</div>
+        <Footer />
     </div>
 </template>
 <script>
 
-import { mapState, mapActions, mapGetters } from 'vuex';
 import date from '@/utils/date';
+import Header from '@/components/Header.vue';
 
 export default {
-    computed: {
-        ...mapState({
-            tips: state => state.product.tips
-        })
-    },
 
-    created() {
-        this.getTips();
-    },
+  components: {
+    Header
+  },
 
-    methods: {
-        ...mapActions([
-            'getTips'
-        ]),
-
-        goAbout() {
-           this.$router.push('/about');
-        }
+  methods: {
+    goAbout() {
+      this.forward('about', {
+        name: 'Alice'
+      });
     }
+  }
 }
 </script>
-<style lang="less" scoped>
-    @import './home.less';
-</style>

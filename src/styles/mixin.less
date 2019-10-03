@@ -1,23 +1,4 @@
 
-// 设计稿基准尺寸
-@__designsize__: 375;
-// rem 单位大小
-@__fontsize__: 20;
-
-// 设置 html fontsize
-.set-html-fontsize() {
-    html {
-        font-size: (@__fontsize__ / @__designsize__) * 100vw !important;
-    
-        @media screen and (max-width: 320px) {
-            font-size: (@__fontsize__ / @__designsize__) * 320px !important;
-        }
-        @media screen and (min-width: 540px) {
-            font-size: (@__fontsize__ / @__designsize__) * 540px !important;
-        }
-    }
-}
-
 .ellipsis() {
     text-overflow: ellipsis;
     overflow: hidden;

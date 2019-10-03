@@ -1,6 +1,7 @@
 <template>
     <div class="me-about-view">
         this is about view
+        <div>Url 参数：{{urlParams.name}}</div>
     </div>
 </template>
 <script>

@@ -1,4 +1,4 @@
-@charset "UTF-8";
+@charset "utf-8";
 
 body, dl, dd,
 ul, ol,
@@ -10,9 +10,6 @@ thead, tbody, tfoot, th, td {
   padding: 0;
 }
  
-/**
- * 非大面积文字排版网站通常不需要列表项，如果需要可单独设置
- */
 ul, ol {
   list-style-type: none;
   list-style-image: none;
@@ -47,15 +44,12 @@ a:focus {
 }
  
 /**
- * 1.防止 iOS 横屏字号放大，同时保证在PC上 zoom 功能正常
- */
+ * 设计稿375px 单位rem 大小为100px
+ * 防止 IOS 字号放大导致布局错乱
+ */ 
 html {
-  -webkit-text-size-adjust: 100%;
-      -ms-text-size-adjust: 100%;
-          text-size-adjust: 100%;
-  /* 1 */
-  font-size: 62.5%;
-  /* 10/16=62.5% */
+  font-size: (100 / 375) * 100vw !important;
+  text-size-adjust: 100%;
 }
  
 body {

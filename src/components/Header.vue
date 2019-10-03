@@ -1,6 +1,6 @@
 <template>
     <div class="me-header-wrapper">
-        header
+        Header
     </div>
 </template>
 <style lang="less" scoped>
