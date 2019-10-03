@@ -81,11 +81,11 @@ module.exports = {
   createHtmlWebpackPlugins(isProd) {
     const plugins = [];
     pages.forEach(page => {
-      const name = page.name;
+      const { title, name, keywords, desc } = page;
       plugins.push(
         new HtmlWebpackPlugin({
-          title: page.title,
-          template: path.join(__dirname, '../index.html'),
+          title,
+          template: path.join(__dirname, '../config/template.html'),
           filename: `${name}.html`,
           inject: true,
           chunks: ['common', 'vendor', 'manifest', name],
@@ -93,8 +93,11 @@ module.exports = {
           minify: isProd ? {
             minifyJS: true,
             minifyCSS: true,
+            removeComments: true,
             collapseWhitespace: true,
-          } : false
+          } : false,
+          keywords,
+          desc
         })
       )
     });
