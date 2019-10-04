@@ -5,5 +5,5 @@
 export default {
   dateFormat() {
     console.log('dateFormat');
-  }
-}
+  },
+};

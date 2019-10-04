@@ -18,15 +18,15 @@ class Page {
     mixins.push({
       data() {
         return {
-          urlParams: querystring.parse(location.search.substr(1))
-        }
+          urlParams: querystring.parse(window.location.search.substr(1)),
+        };
       },
       methods: {
         forward(pageName, params) {
           const url = `${pageName}.html?${querystring.stringify(params)}`;
           window.location.href = url;
-        }
-      }
+        },
+      },
     });
 
     this.component.mixins = mixins;
@@ -35,7 +35,7 @@ class Page {
   run() {
     return new Vue({
       el: '#app',
-      render: h => h(this.component)
+      render: (h) => h(this.component),
     });
   }
 }

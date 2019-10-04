@@ -11,18 +11,20 @@
 import date from '@/utils/date';
 import Header from '@/components/Header.vue';
 
+date.dateFormat();
+
 export default {
 
   components: {
-    Header
+    Header,
   },
 
   methods: {
     goAbout() {
       this.forward('about', {
-        name: 'Alice'
+        name: 'Alice',
       });
-    }
-  }
-}
+    },
+  },
+};
 </script>

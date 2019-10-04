@@ -15,11 +15,11 @@ module.exports = {
         loaders: {
           css: ExtractTextPlugin.extract({
             fallback: 'vue-style-loader',
-            use: self.getStyleLoaders(isProd)
-          })
-        }
-      }
-    }
+            use: self.getStyleLoaders(isProd),
+          }),
+        },
+      },
+    };
   },
 
   createStyleLoader(isProd) {
@@ -28,9 +28,9 @@ module.exports = {
       test: /\.(css|less)$/,
       use: ExtractTextPlugin.extract({
         fallback: 'vue-style-loader',
-        use: self.getStyleLoaders(isProd)
-      })
-    }
+        use: self.getStyleLoaders(isProd),
+      }),
+    };
   },
 
   createImageLoader(filename) {
@@ -39,9 +39,9 @@ module.exports = {
       loader: 'url-loader',
       options: {
         limit: 8192,
-        name: filename
-      }
-    }
+        name: filename,
+      },
+    };
   },
 
   createFontLoader(filename) {
@@ -50,29 +50,29 @@ module.exports = {
       loader: 'url-loader',
       options: {
         limit: 8192,
-        name: filename
-      }
-    }
+        name: filename,
+      },
+    };
   },
 
   getStyleLoaders(isProd) {
     const env = isProd ? 'build' : 'dev';
-    let loaders = ['css-loader', 'postcss-loader', 'less-loader'];
-    return loaders.map(loader => {
-      let options = {
-        sourceMap: config[env].useSourceMap
+    const loaders = ['css-loader', 'postcss-loader', 'less-loader'];
+    return loaders.map((loader) => {
+      const options = {
+        sourceMap: config[env].useSourceMap,
       };
       if (loader === 'css-loader' && isProd) {
         options.minimize = true;
       }
       return { loader, options };
-    })
+    });
   },
 
   createPageEntries() {
     const entry = {};
-    pages.forEach(page => {
-      const name = page.name;
+    pages.forEach((page) => {
+      const { name } = page;
       entry[name] = `./src/pages/${name}/${name}.js`;
     });
     return entry;
@@ -80,8 +80,10 @@ module.exports = {
 
   createHtmlWebpackPlugins(isProd) {
     const plugins = [];
-    pages.forEach(page => {
-      const { title, name, keywords, desc } = page;
+    pages.forEach((page) => {
+      const {
+        title, name, keywords, desc,
+      } = page;
       plugins.push(
         new HtmlWebpackPlugin({
           title,
@@ -97,10 +99,10 @@ module.exports = {
             collapseWhitespace: true,
           } : false,
           keywords,
-          desc
-        })
-      )
+          desc,
+        }),
+      );
     });
     return plugins;
-  }
-}
+  },
+};

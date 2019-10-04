@@ -17,7 +17,7 @@ module.exports = {
     assetsPublicPath: '/',
     proxyTable: {},
     useSourceMap: true,
-    devtool: '#cheap-module-eval-source-map'
+    devtool: '#cheap-module-eval-source-map',
   },
 
   build: {
@@ -26,7 +26,6 @@ module.exports = {
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
     useSourceMap: false,
-    devtool: '#source-map'
-  }
+    devtool: '#source-map',
+  },
 };
-

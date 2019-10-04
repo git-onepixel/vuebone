@@ -13,9 +13,9 @@ module.exports = {
   resolve: {
     extensions: ['.js', '.vue', '.json'],
     alias: {
-      'vue$': 'vue/dist/vue.esm.js',
-      '@': path.join(__dirname, '../src')
-    }
+      vue$: 'vue/dist/vue.esm.js',
+      '@': path.join(__dirname, '../src'),
+    },
   },
 
   module: {
@@ -23,35 +23,39 @@ module.exports = {
       {
         test: /\.js$/,
         loader: 'babel-loader',
-        exclude: /node_modules/
-      }
-    ]
+        exclude: /node_modules/,
+      },
+      {
+        test: /\.(js|vue)$/,
+        loader: 'eslint-loader',
+        exclude: /node_modules/,
+      },
+    ],
   },
 
   plugins: [
     new webpack.optimize.CommonsChunkPlugin({
       name: 'common',
-      minChunks: config.entryChunks
+      minChunks: config.entryChunks,
     }),
 
     new webpack.optimize.CommonsChunkPlugin({
       name: 'vendor',
-      minChunks: function (module, count) {
+      minChunks(module) {
         return (
-          module.resource &&
-          /\.js$/.test(module.resource) &&
-          module.resource.indexOf(
-            path.join(__dirname, '../node_modules')
+          module.resource
+          && /\.js$/.test(module.resource)
+          && module.resource.indexOf(
+            path.join(__dirname, '../node_modules'),
           ) === 0
-        )
+        );
       },
-      chunks: ['common']
+      chunks: ['common'],
     }),
 
     new webpack.optimize.CommonsChunkPlugin({
       name: 'manifest',
-      chunks: Infinity
-    })
-  ]
+      chunks: Infinity,
+    }),
+  ],
 };
-

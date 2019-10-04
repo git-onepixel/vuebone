@@ -8,9 +8,15 @@
 
 import date from '@/utils/date';
 
+date.dateFormat();
+
 export default {
-    
-}
+  data() {
+    return {
+
+    };
+  },
+};
 </script>
 <style lang="less" scoped>
     .me-about-view {
