@@ -10,8 +10,8 @@ import modules from './modules';
 Vue.use(Vuex);
 
 export default new Vuex.Store({
-    strict: process.env.NODE_ENV !== 'production',
-    modules,
-    plugins: [createLogger()]
+  modules,
+  plugins: [
+    createLogger(),
+  ],
 });
-

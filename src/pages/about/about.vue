@@ -7,9 +7,11 @@
 
 import date from '@/utils/date';
 
+date.dateFormat();
+
 export default {
-    
-}
+
+};
 </script>
 <style lang="less" scoped>
     .me-about-view {

@@ -1,53 +1,70 @@
 /**
- * @file dev configuration
+ * @file dev conf
+ * @author onepixel
  */
 
 const path = require('path');
 const webpack = require('webpack');
-const config = require('../config');
 const merge = require('webpack-merge');
-const packageJson = require('../package.json');
 const baseWebpackConfig = require('./webpack.base.conf');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const pkg = require('../package.json');
+const config = require('../config');
+const helper = require('./helper');
+
+const assetsPath = (filename) => `${config.dev.assetsSubDirectory}/${filename}`;
 
 module.exports = merge(baseWebpackConfig, {
-    output: {
-        publicPath: config.dev.assetsPublicPath,
-        filename: 'js/[name].js',
-        chunkFilename: 'pages/[name].js'
-    },
+  output: {
+    publicPath: config.dev.assetsPublicPath,
+    filename: assetsPath('js/[name].js'),
+    chunkFilename: assetsPath('pages/[name].js'),
+  },
 
-    devtool: config.dev.useSourceMap ? config.dev.devtool : false,
+  devtool: config.dev.useSourceMap ? config.dev.devtool : false,
 
-    devServer: {
-        hot: true,
-        host: config.dev.host,
-        port: process.env.PORT || config.dev.port,
-        proxy: config.dev.proxyTable,
-        historyApiFallback: true,
-        quiet: true
-    },
+  module: {
+    rules: [
+      helper.createVueLoader(),
+      helper.createStyleLoader(),
+      helper.createImageLoader(assetsPath('img/[name].[ext]')),
+      helper.createFontLoader(assetsPath('fonts/[name].[ext]')),
+    ],
+  },
 
-    plugins: [
-        new webpack.DefinePlugin({
-            'process.env': config.dev.env
-        }),
+  devServer: {
+    hot: true,
+    host: config.dev.host,
+    port: process.env.PORT || config.dev.port,
+    proxy: config.dev.proxyTable,
+    historyApiFallback: true,
+    quiet: true,
+  },
 
-        new ExtractTextPlugin({
-            filename: 'css/[name].css'
-        }),
+  plugins: [
 
-        new webpack.HotModuleReplacementPlugin(),
+    new webpack.DefinePlugin({
+      'process.env': {
+        NODE_ENV: config.dev.env,
+      },
+    }),
 
-        new FriendlyErrorsPlugin(),
+    new ExtractTextPlugin({
+      filename: 'css/[name].css',
+    }),
 
-        new HtmlWebpackPlugin({
-            title: packageJson.title,
-            template: path.join(__dirname, '../src/layouts/index.html'),
-            filename: 'index.html',
-            inject: true
-        })
-    ]
+    new webpack.HotModuleReplacementPlugin(),
+
+    new FriendlyErrorsPlugin(),
+
+    new HtmlWebpackPlugin({
+      title: pkg.name,
+      template: path.join(__dirname, '../config/template.html'),
+      filename: 'index.html',
+      inject: true,
+    }),
+  ],
+
 });

@@ -9,8 +9,7 @@ import routes from './routes';
 Vue.use(Router);
 
 export default new Router({
-    mode: 'history',
-    strict: process.env.NODE_ENV !== 'production',
-	routes
+  mode: 'history',
+  strict: process.env.NODE_ENV !== 'production',
+  routes,
 });
-

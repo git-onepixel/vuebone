@@ -3,7 +3,7 @@
  */
 
 export default {
-    dateFormat() {
-        console.log('dateFormat');
-    }
-}
+  dateFormat() {
+    console.log('dateFormat');
+  },
+};

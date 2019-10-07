@@ -7,31 +7,31 @@
 </template>
 <script>
 
-import { mapState, mapActions, mapGetters } from 'vuex';
+import { mapState, mapActions } from 'vuex';
 import date from '@/utils/date';
+import './home.less';
+
+date.dateFormat();
 
 export default {
-    computed: {
-        ...mapState({
-            tips: state => state.product.tips
-        })
+  computed: {
+    ...mapState({
+      tips: (state) => state.product.tips,
+    }),
+  },
+
+  created() {
+    this.getTips();
+  },
+
+  methods: {
+    ...mapActions([
+      'getTips',
+    ]),
+
+    goAbout() {
+      this.$router.push('/about');
     },
-
-    created() {
-        this.getTips();
-    },
-
-    methods: {
-        ...mapActions([
-            'getTips'
-        ]),
-
-        goAbout() {
-           this.$router.push('/about');
-        }
-    }
-}
+  },
+};
 </script>
-<style lang="less" scoped>
-    @import './home.less';
-</style>
