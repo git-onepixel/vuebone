@@ -49,7 +49,7 @@
     "vue-style-loader": "^2.0.5",
     "vue-template-compiler": "^2.6.8",
     "webpack": "^3.0.0",
-    "webpack-dev-server": "^2.5.0",
+    "webpack-dev-server": "^3.8.2",
     "webpack-merge": "^4.1.0",
     "zip-webpack-plugin": "^2.0.0"
   },
