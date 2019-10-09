@@ -1,5 +1,8 @@
-const config = require('../config');
+const path = require('path');
+const config = require('./config');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const pkg = require('../package.json');
 
 module.exports = {
 
@@ -63,6 +66,21 @@ module.exports = {
         options.minimize = true;
       }
       return { loader, options };
+    });
+  },
+
+  createHtmlWebpackPlugin(isProd) {
+    return new HtmlWebpackPlugin({
+      title: pkg.name,
+      template: path.join(__dirname, '../public/index.html'),
+      filename: 'index.html',
+      inject: true,
+      minify: {
+        minifyJS: isProd,
+        minifyCSS: isProd,
+        removeComments: isProd,
+        collapseWhitespace: isProd,
+      },
     });
   },
 };

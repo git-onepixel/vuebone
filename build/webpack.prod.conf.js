@@ -3,16 +3,13 @@
  * @author onepixel
  */
 
-const path = require('path');
 const webpack = require('webpack');
 const merge = require('webpack-merge');
-const baseWebpackConfig = require('./webpack.base.conf');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
 const ZipWebpackPlugin = require('zip-webpack-plugin');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+const baseWebpackConfig = require('./webpack.base.conf');
 const pkg = require('../package.json');
-const config = require('../config');
+const config = require('./config');
 const helper = require('./helper');
 
 const assetsPath = (filename) => `${config.build.assetsSubDirectory}/${filename}`;
@@ -31,8 +28,12 @@ module.exports = merge(baseWebpackConfig, {
     rules: [
       helper.createVueLoader(true),
       helper.createStyleLoader(true),
-      helper.createImageLoader(assetsPath('img/[name].[contenthash:8].[ext]')),
-      helper.createFontLoader(assetsPath('fonts/[name].[contenthash:8].[ext]')),
+      helper.createImageLoader(
+        assetsPath('img/[name].[contenthash:8].[ext]'),
+      ),
+      helper.createFontLoader(
+        assetsPath('fonts/[name].[contenthash:8].[ext]'),
+      ),
     ],
   },
 
@@ -54,28 +55,10 @@ module.exports = merge(baseWebpackConfig, {
       sourceMap: config.build.useSourceMap,
     }),
 
-    new HtmlWebpackPlugin({
-      title: pkg.name,
-      template: path.join(__dirname, '../config/template.html'),
-      filename: 'index.html',
-      inject: true,
-      minify: {
-        minifyJS: true,
-        minifyCSS: true,
-        removeComments: true,
-        collapseWhitespace: true,
-      },
-    }),
-
-    new CopyWebpackPlugin([
-      {
-        from: path.join(__dirname, '../public'),
-        to: path.join(__dirname, '../dist'),
-      },
-    ]),
+    helper.createHtmlWebpackPlugin(true),
 
     new ZipWebpackPlugin({
-      filename: `${pkg.name}_prod.zip`,
+      filename: `${pkg.name}.zip`,
     }),
   ],
 });

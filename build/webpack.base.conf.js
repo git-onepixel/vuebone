@@ -4,6 +4,7 @@
 
 const path = require('path');
 const webpack = require('webpack');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
   entry: {
@@ -49,6 +50,12 @@ module.exports = {
     new webpack.optimize.CommonsChunkPlugin({
       name: 'manifest',
       minChunks: Infinity,
+    }),
+
+    new CopyWebpackPlugin([{
+      from: 'public',
+    }], {
+      ignore: ['*.html'],
     }),
   ],
 };
